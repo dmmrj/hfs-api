@@ -34,7 +34,6 @@ function insertStations() {
 
 async function createEntry(values, stationData) {
 	try {
-		const baseURL = BASE_URL;
 		const headers = {
 			Authorization: `Bearer ${TOKEN}`,
 			'Content-Type': 'application/json',
@@ -68,8 +67,10 @@ async function createEntry(values, stationData) {
 		};
 
 		const updateResponse = await axios
-			.post(`${baseURL}/${collectionName}`, entry, { headers })
-			.then((response) => response.data)
+			.post(`${BASE_URL}/${COLLECTION_NAME}`, entry, { headers })
+			.then((response) => {
+				console.log(response.data);
+			})
 			.catch((error) => error);
 		console.log('Entry created successfully:', updateResponse.data);
 	} catch (err) {
