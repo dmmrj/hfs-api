@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const DIR = path.join(__dirname, './svs_sel/');
+const DIR = path.join(__dirname, '../svs_sel/');
 const Station = require('./Station.js');
 
 function getData(value) {
