@@ -1,10 +1,10 @@
 <!-- @format -->
 
-# HFS-APP - Orthometric water height using React JS
+# HFS-APP: WEB API - Orthometric water height using React JS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This Web map application uses open source libraries to collect, process and display satellite calibrated data from GPM Mission and to vizualize graphic chart data of river's orthometric water height.
+This API-Web component of Web map application that uses open source libraries to collect, process and display satellite calibrated data from GPM Mission and to vizualize graphic chart data of river's orthometric water height.
 
 Currenctly show 2900+ virtual fluviometric stations in Amazon and Paraná basins in Brazil.
 
@@ -24,7 +24,9 @@ Online demo: http://hydrologyfomspace.org/hfs-app
 
 - [React.js](https://reactjs.org/)
 - [MapBox GL JS](https://www.mapbox.com/)
-- [Strapi](https://strapi.io//)
+- [GDAL](https://gdal.org/)
+- [NodeJS](https://nodejs.org/)
+- [Strapi](https://strapi.io/)
 
 <!-- LICENSE -->
 
