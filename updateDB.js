@@ -74,7 +74,6 @@ async function updateEntry(element, stationData) {
 				updatedEntry,
 				{ headers }
 			);
-
 			console.log('Entry created successfully:', updateResponse.data);
 		} else {
 			console.log(
