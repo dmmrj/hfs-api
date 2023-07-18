@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This API-Web component of Web map application that uses open source libraries to collect, process and display satellite calibrated data from several source missions to visualize graphic chart data of river's orthometric water height.
+This API-Web component of Web map application that uses open source libraries to collect, process and display satellite calibrated data from several source missions to visualize graphic chart data from rivers orthometric water height at virtual stations coordenates.
 
 Currenctly show 2900+ virtual fluviometric stations in Amazon and Paraná basins in Brazil.
 
