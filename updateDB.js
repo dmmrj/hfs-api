@@ -9,7 +9,7 @@ const path = require('path');
 const axios = require('axios').default;
 
 const filePath = path.join(__dirname, './svs_sel/');
-const { getJSONFile, checkNull } = require('./src/utils');
+const { getJSONFile } = require('./src/utils');
 const { getData } = require('./src/fileOperations');
 
 const STATIONS = process.env.STATIONS;
