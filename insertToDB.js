@@ -74,7 +74,6 @@ async function createEntry(values, stationData) {
 				console.log(response.data);
 			})
 			.catch((error) => error);
-		console.log('Entry created successfully:', updateResponse.data);
 	} catch (err) {
 		console.log(err);
 	}
