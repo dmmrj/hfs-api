@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# HFS-APP: WEB API - Orthometric Water Height
+# HFS-APP: WEB API - South America Hydrology from Space
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
