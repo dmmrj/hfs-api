@@ -15,7 +15,6 @@ const TOKEN = process.env.TOKEN;
 function insertStations() {
 	try {
 		const sData = getJSONFile(filePath, STATIONS);
-		//console.log(sData.features);
 		// array with all stations from geojson file
 		const vstations = sData.features;
 		const stationNames = new Array();
