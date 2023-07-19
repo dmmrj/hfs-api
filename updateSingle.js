@@ -10,7 +10,7 @@ const { updateEntry } = require('./src/updateOp');
 const STATIONS = process.env.STATIONS;
 const STATION_NAME = process.argv[2];
 
-function insertStations(name) {
+function updateStations(name) {
 	try {
 		const sData = getJSONFile(filePath, STATIONS);
 		// array with all stations from geojson file
