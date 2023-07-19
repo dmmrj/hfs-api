@@ -70,7 +70,7 @@ const logCreate = {
 	],
 	format: format.combine(
 		format.label({
-			label: `Stations-JSON🏷️`,
+			label: `Create Log 🏷️`,
 		}),
 		format.timestamp({
 			format: 'MMM-DD-YYYY HH:mm:ss',
