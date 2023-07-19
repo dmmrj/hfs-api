@@ -49,6 +49,7 @@ ogr2ogr -f "GeoJSON" vs_S3B.geojson sv.vrt
 grep S6A tempo2 > tempo3
 cat cabeca.csv tempo3 > sv.csv
 ogr2ogr -f "GeoJSON" vs_S6A.geojson sv.vrt
+cp vs_*.geojson /home/hydrology/www/public_html/assets/data/geojson/
 rm -f sv.csv tempo*
 rm -f download/*.txt
 fi
