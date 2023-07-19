@@ -2,31 +2,40 @@
 require('dotenv').config();
 const path = require('path');
 const axios = require('axios').default;
-
+const { insertLogger } = require('./src/logger.js');
 const filePath = path.join(__dirname, './svs_sel/');
 const { getJSONFile, checkNull } = require('./src/utils');
 const { getData } = require('./src/fileOperations');
 const { createEntry } = require('./src/createOp');
 
 const STATIONS = process.env.STATIONS;
-const BASE_URL = process.env.BASE_URL;
-const COLLECTION_NAME = process.env.COLLECTION_NAME;
-const TOKEN = process.env.TOKEN;
 
 function insertStations() {
 	try {
 		const sData = getJSONFile(filePath, STATIONS);
 		// array with all stations from geojson file
 		const vstations = sData.features;
-		const stationNames = new Array();
 
+		let updateCount = 0;
+		let interval = 1000; // how much time should the delay between two iterations be (in milliseconds)?
+		let promise = Promise.resolve();
 		vstations.forEach((element, index) => {
-			setTimeout(() => {
-				console.log(element.properties.name);
+			promise = promise.then(function () {
 				createEntry(element, getData(element.properties.name));
-			}, index * 1000);
+				updateCount++;
+				return new Promise(function (resolve) {
+					setTimeout(resolve, interval);
+				});
+			});
 		});
-		return stationNames;
+		promise.then(function () {
+			updateLogger.info(
+				'Database updated - Number of entries:' +
+					features.length +
+					' inserted entries:' +
+					updateCount
+			);
+		});
 	} catch (err) {
 		console.log(err);
 	}
