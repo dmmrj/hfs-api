@@ -81,6 +81,25 @@ function getData(value) {
 			}
 		});
 
+		let fileCurContent = fs.readFileSync(
+			DIR + `2023_hydroprd_${value}.txt`,
+			'utf-8'
+		);
+		let curLines = fileCurContent.split('\n');
+		let dataSetCur = new Array();
+
+		curLines.forEach(function (line, index) {
+			// Process each line here
+			if (line.charAt(0) != ' ' && !regex2.test(line)) {
+				let varLine = line.split(' ');
+				dataSetCur.push({
+					date: varLine[0],
+					dateTime: new Date(varLine[0]),
+					valueCur: Number(varLine[1]),
+				});
+			}
+		});
+
 		let dataGeneral = getStationFileData(value);
 
 		// Prepare the updated data for the entry
@@ -90,6 +109,7 @@ function getData(value) {
 					men: dataSetMen,
 					maxData: dataSetMax,
 					minData: dataSetMin,
+					curData: dataSetCur,
 					maxYear: maxYear,
 					minYear: minYear,
 				},

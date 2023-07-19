@@ -1,16 +1,18 @@
 /** @format */
 
 /*
-  Update to Strapi Files
+  Update to Strapi DB
 */
 
 require('dotenv').config();
 const path = require('path');
+const scriptName = path.basename(__filename);
 const axios = require('axios').default;
-
+const { updateLogger } = require('./src/logger.js');
 const filePath = path.join(__dirname, './svs_sel/');
 const { getJSONFile } = require('./src/utils');
 const { getData } = require('./src/fileOperations');
+const { updateEntry } = require('./src/updateOp');
 
 const STATIONS = process.env.STATIONS;
 const BASE_URL = process.env.BASE_URL;
@@ -18,70 +20,62 @@ const COLLECTION_NAME = process.env.COLLECTION_NAME;
 const TOKEN = process.env.TOKEN;
 
 function checkForChange() {
-	const lastFile = getJSONFile(filePath, `vs_last.geojson`);
-	const currentFile = getJSONFile(filePath, `vs_All.geojson`);
-	const features = lastFile.features;
-	const featuresCurrent = currentFile.features;
-	console.log(featuresCurrent.length);
-	console.log(features.length);
-
-	const filteredFile = features.filter((element, index) => {
-		let lastDate = element.properties.e_date;
-		let currentDate = featuresCurrent[index].properties.e_date;
-		let lName = element.properties.name;
-		let cName = featuresCurrent[index].properties.name;
-		return lastDate != currentDate && lName == cName;
-	});
-
-	filteredFile.forEach((element, index) => {
-		setTimeout(() => {
-			let lName = element.properties.name;
-			let updatedData = getData(lName);
-			updateEntry(element, updatedData);
-		}, index * 2000);
-	});
-}
-
-async function updateEntry(element, stationData) {
 	try {
-		const headers = {
-			Authorization: `Bearer ${TOKEN}`,
-			'Content-Type': 'application/json',
-		};
-
-		let stationName = element.properties.name;
-
-		const response = await axios.get(
-			`${BASE_URL}/${COLLECTION_NAME}?filters[name]=${stationName}`
-		);
-		const entries = response.data;
-		console.log(entries);
-
-		// Assuming you want to update the first entry in the response
-		if (entries) {
-			const entryId = entries.data[0].id;
-
-			// Define the updated JSON entry
-			const updatedEntry = {
-				data: {
-					data: stationData.data.data,
-					overall: stationData.data.overall,
-				},
-			};
-			// Make a PUT request to update the entry
-			const updateResponse = await axios.put(
-				`${BASE_URL}/${COLLECTION_NAME}/${entryId}`,
-				updatedEntry,
-				{ headers }
-			);
-			console.log('Entry created successfully:', updateResponse.data);
-		} else {
-			console.log(
-				'No entry found with the specified custom specific field.'
+		const lastFile = getJSONFile(filePath, `vs_last.geojson`);
+		const currentFile = getJSONFile(filePath, `vs_All.geojson`);
+		const features = lastFile.features;
+		const featuresCurrent = currentFile.features;
+		let updateCount = 0;
+		// Stop process if files have diferent numbers of entries
+		if (featuresCurrent.length != features.length) {
+			throw new Error(
+				scriptName +
+					' GeoJson files entries size is different! - Last:' +
+					features.length +
+					' Current:' +
+					featuresCurrent.length
 			);
 		}
-	} catch (err) {
-		console.log(err);
+
+		/*
+		compares last date between vs_last and vs_all
+		if is different add it to new arrayList of stations names
+	  */
+		const filteredFile = features.filter((element, index) => {
+			let lastDate = element.properties.e_date;
+			let currentDate = featuresCurrent[index].properties.e_date;
+			let lName = element.properties.name;
+			let cName = featuresCurrent[index].properties.name;
+			return lastDate != currentDate && lName == cName;
+		});
+		/*
+		with the new list of updated stations names
+		update the entry of those stations
+	*/
+		let interval = 2000; // how much time should the delay between two iterations be (in milliseconds)?
+		let promise = Promise.resolve();
+		filteredFile.forEach((element, index) => {
+			promise = promise.then(function () {
+				let lName = element.properties.name;
+				let updatedData = getData(lName);
+				result = updateEntry(element, updatedData);
+				updateCount++;
+				return new Promise(function (resolve) {
+					setTimeout(resolve, interval);
+				});
+			});
+		});
+		promise.then(function () {
+			updateLogger.info(
+				'Database updated - Number of entries:' +
+					features.length +
+					' updated entries:' +
+					updateCount
+			);
+		});
+	} catch (error) {
+		console.error(`${error.name}: ${error.message}`);
+		updateLogger.error(error.message);
 	}
 }
 
