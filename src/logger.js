@@ -88,6 +88,6 @@ const updateLogger = createLogger(logUpdate);
 const insertLogger = createLogger(logCreate);
 
 module.exports = {
-	updateLog: updateLogger,
+	updateLogger: updateLogger,
 	insertLogger: insertLogger,
 };
