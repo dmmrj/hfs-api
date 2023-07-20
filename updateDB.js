@@ -21,7 +21,7 @@ const TOKEN = process.env.TOKEN;
 
 function checkForChange() {
 	try {
-		const lastFile = getJSONFile(filePath, `vs_last.geojson`);
+		const lastFile = getJSONFile(filePath, `vs_Last.geojson`);
 		const currentFile = getJSONFile(filePath, `vs_All.geojson`);
 		const features = lastFile.features;
 		const featuresCurrent = currentFile.features;
