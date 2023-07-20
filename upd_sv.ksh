@@ -32,7 +32,7 @@ pen=`tail -2 $i | head -1 | awk -v v1="$valor" '{printf "%4.1f\n", v1-$3}'`
 echo $i $dat $ano $valor $pen >> anomalia_estacoes.txt
 done
 join -a 1 -a 2 stations_list.txt anomalia_estacoes.txt > tempo
-more tempo | sed 's/hydroprd_//g' | sed 's/.txt//g' | sed 's/ /,/g' > tempo2
+grep hydroprd tempo | sed 's/hydroprd_//g' | sed 's/.txt//g' | sed 's/ /,/g' > tempo2
 cat cabeca.csv tempo2 > sv.csv
 ogr2ogr -f "GeoJSON" vs_All.geojson sv.vrt
 grep J2 tempo2 > tempo3
