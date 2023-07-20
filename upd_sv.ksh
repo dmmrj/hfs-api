@@ -1,6 +1,7 @@
 #!/bin/ksh
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 cd /home/hydrology/scripts/svs_sel
+cp vs_All.geojson vs_Last.geojson
 dat1=`date +%Y-%m-%d`
 file=`echo download/$dat1.zip`
 dat2=`more anomalia_estacoes.txt | awk '{print $2}' | sort | tail -1`
