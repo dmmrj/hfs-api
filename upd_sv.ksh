@@ -11,7 +11,7 @@ rm -f *.zip
 wget "https://hydroweb.theia-land.fr/hydroweb/authdownload?products=rivers_operational&format=txt&sdate=$dat2&edate=$dat1&user=daniel.moreira@cprm.gov.br&pwd=#D4ni31198o" -O $dat1.zip
 file1=`find "$dat1.zip" -size +900k`
 if [ -n "$file1" ]; then
-unzip $dat1.zip
+unzip -q $dat1.zip
 cd ..
 rm -f anomalia_estacoes.txt
 list=`ls hydroprd_R_*.txt`
