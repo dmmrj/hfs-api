@@ -1,2 +1,2 @@
 #!/bin/bash
-node updateDB.js
+node $HOME/scripts/updateDB.js
