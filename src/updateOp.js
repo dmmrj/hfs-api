@@ -74,6 +74,11 @@ async function updateEntry(element, stationData) {
 				console.log(
 					'No entry found with the specified custom specific field.!!!'
 				);
+				updateLogger.error(
+					scriptName +
+						' No entry found in DB for: ' +
+						element.properties.name
+				);
 			});
 	} catch (error) {
 		console.error(`${error.stack}`);
