@@ -2,3 +2,4 @@ node_modules
 svs_sel
 .env
 logs/*
+assets/data/drainage/*
