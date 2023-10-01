@@ -45,7 +45,7 @@ This API follows the [Semantic Versioning](https://semver.org/) guidelines. Step
 ### Maintainers
 
 - [Bruno Moreira](https://github.com/bmmoreira)
-- [Daniel Moreira](https://github.com/dmmrj)
+- [Daniel M Moreira](https://github.com/dmmrj)
 - [Codex](https://github.com/CodexKoder)
 
 Maintainers of hfs-api have commit access to this GitHub repository, and take part in the decision making process.
