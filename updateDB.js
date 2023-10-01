@@ -58,6 +58,7 @@ function checkForChange() {
 			promise = promise.then(function () {
 				let lName = element.properties.name;
 				let updatedData = getData(lName);
+				console.log(lName);
 				result = updateEntry(element, updatedData);
 				updateCount++;
 				return new Promise(function (resolve) {

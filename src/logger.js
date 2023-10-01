@@ -52,6 +52,27 @@ const logUpdate = {
 	],
 };
 
+const logDaily = {
+	transports: [
+		new transports.Console({
+			level: 'info',
+			format: formatInfo,
+		}),
+		new transports.File({
+			level: 'info',
+			// Create the log directory if it does not exist
+			filename: output + 'daily.log',
+			format: formatInfo,
+		}),
+		new transports.File({
+			level: 'error',
+			// Create the log directory if it does not exist
+			filename: output + 'daily-error.log',
+			format: formatError,
+		}),
+	],
+};
+
 const logCreate = {
 	transports: [
 		new transports.Console({
@@ -84,10 +105,12 @@ const logCreate = {
 	),
 };
 
+const dailyLogger = createLogger(logDaily);
 const updateLogger = createLogger(logUpdate);
 const insertLogger = createLogger(logCreate);
 
 module.exports = {
 	updateLogger: updateLogger,
 	insertLogger: insertLogger,
+	dailyLogger: dailyLogger,
 };

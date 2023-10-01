@@ -11,7 +11,7 @@ const DIR_DRAINAGE = path.join(__dirname, '../assets/data/drainage/');
 const { getJSONFile } = require('../src/utils');
 
 const axios = require('axios').default;
-const { updateLogger } = require('./logger.js');
+const { updateLogger, dailyLogger } = require('./logger.js');
 
 const BASE_URL = process.env.BASE_URL;
 const COLLECTION_NAME = process.env.COLLECTION_NAME;
@@ -54,6 +54,9 @@ async function updateEntry(element, stationData) {
 							// add object to list of stories
 							console.log('StatusCode :' + result.status);
 							console.log(result.data.data.id);
+							dailyLogger.info(
+								'StatusCode :' + result.status + ' ' + result.data.data.id
+							);
 						})
 						.catch((err) => {
 							console.log(err);
